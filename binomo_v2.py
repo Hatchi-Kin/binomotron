@@ -35,7 +35,7 @@ while on:
 
     # condition pour afficher une nouvelle liste aléatoire de binomes
     if action == "a":
-        # liste_noms = creer_liste_noms()
+        liste_noms = creer_liste_noms()
         binomes = creer_binomes(liste_noms)
         print(binomes)
         in_action = input("""
