@@ -26,21 +26,22 @@ while on:
     **********************************************************************************************
     Entrez  "a"  pour créer une liste de binomes aléatoire et l'afficher: 
     Entrez  "b"  pour afficher la liste de binomes déjà enregistrée dans la BDD (si elle existe): 
+    Entrez  "c"  pour créer un groupe et choisir le nombre de membres: 
     Entrez un chiffre entre  1 et 8  pour afficher un binome spécifique: 
-    Entrez un  "prenom" pour afficher son binome et leurs adresses mail: 
+    Entrez un  "prenom" pour afficher son binome et leurs adresses mail:   
     Entrez  "x"  pour quitter le programme: 
     **********************************************************************************************
     """)
 
     # condition pour afficher une nouvelle liste aléatoire de binomes
     if action == "a":
-        liste_noms = creer_liste_noms()
+        # liste_noms = creer_liste_noms()
         binomes = creer_binomes(liste_noms)
         print(binomes)
         in_action = input("""
 
     **********************************************************************************************
-        Voulez-vous saveguarder cette liste de binomes dans la BDD? (y/n): 
+        Voulez-vous sauvegarder cette liste de binomes dans la BDD? (y/n): 
     **********************************************************************************************
     
         # """)
@@ -60,7 +61,11 @@ while on:
                 # fonction perso pour effacer le contenu de la table binomes puis enregistrer la liste précedement créée
                 commit_binomes_to_bdd(binomes) 
             else:
-                print("Veuillez entrez une commande valide. ")
+                print("""
+    **********************************************************************************************
+    Veuillez entrez une commande valide. 
+    **********************************************************************************************
+    """)
                 continue
 
 
@@ -68,11 +73,35 @@ while on:
             # fonction perso créer une liste avec le contenu de la colonne libelle_buo de la table duos de la BDD
             print(show_duos_from_bdd())
 
+
+    elif action == "c":
+        choix_de_n = int(input("""
+    **********************************************************************************************
+    Combien de membres voulez vous par groupe? 
+    **********************************************************************************************
+    """))
+        # fonction perso créer pour créer des groupes qui prendront la taille de l'input 
+        groupe_de_n = creer_groupe_de_n(choix_de_n)
+        print(f" liste de groupe avec {choix_de_n} par groupe: ")
+        for i in groupe_de_n:
+            print(i)
+        new_input = input("""
+    **********************************************************************************************
+        Voulez vous enregistrer ces groupes dans la BDD? (y/n): 
+    **********************************************************************************************
+    """)
+        if new_input == 'y':
+            # fonction perso pour effacer le contenu de la table groupes puis enregistrer la liste groupe_de_n qui vient d'être créee
+            commit_groupe_de_n_to_bdd(groupe_de_n)
+        else:
+            continue
+         
+
     # condition pour afficher un binome spécifique (input = indice de la liste binomes[])
     elif action.isdigit() and int(action) >= 1 and int(action) <= 8: 
             binomes = show_duos_from_bdd()
-            hot_bin = binomes[(int(action)-1)]
-            print(f"binome_{int(action)}: {hot_bin}")
+            hot_potato = binomes[(int(action)-1)]        # hot_potato juste pour la lisibilité
+            print(f"binome_{int(action)}: {hot_potato}")
 
     # condition pour afficher binome + mails
     elif action in liste_noms_deux:          
