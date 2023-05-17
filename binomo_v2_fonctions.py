@@ -65,7 +65,6 @@ def commit_binomes_to_bdd(binomes):
 ################################################
 
 ################################################
-
 def show_duos_from_bdd():
     user = "root"
     password = "example"
