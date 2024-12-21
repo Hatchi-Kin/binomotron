@@ -33,7 +33,7 @@ Création et peuplement de la base de données
    ```sh
    docker exec -it db mysql -u root -p
    ```
-   Entrez le mot de passe example lorsque vous y êtes invité.
+   Entrez le mot de passe example lorsque vous y êtes invité. ('example')
 
 2. Créez la base de données :
    ```sql
@@ -46,9 +46,8 @@ Création et peuplement de la base de données
 
 4. Importez le script SQL pour créer les tables et insérer les données :
    ```sh
-   docker exec -i db mysql -u root -p binomotron_t2_bdd < binomotron_t2_bdd.sql
+   docker exec -i db mysql -u root -pexample binomotron_t2_bdd < binomotron_t2_bdd.sql
    ```
-   Entrez le mot de passe example lorsque vous y êtes invité.
 
 ### Utilisation de l'application
 
