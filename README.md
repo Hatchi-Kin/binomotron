@@ -1,27 +1,81 @@
 # binomotron
-Une App qui permet de générer des équipes projet à partir d'une base de données contenant une liste d'élèves
 
+Une App qui permet de générer des équipes projet à partir d'une base de données contenant une liste d'élèves.
 
-Cette appli se décompose en 2 parties :
+### Installation
 
-• Une base de données (en MySQL) : pour commencer, cette base contient une simple table qui liste les élèves de la promo,
+1. Clonez ce dépôt sur votre machine locale :
+   git clone <URL_DU_DEPOT>
+   cd binomotron
 
-• Le code de l'appli (en Python) : dans un premier temps, le code créée des binômes en répartissant, au hasard, les apprenants par 2. Il faut faire attention à ce que l’élève n'appartienne qu'à une seule et unique équipe et que tous les élèves aient un binôme. Les listes des binômes, ainsi que leur constitution, sont à afficher.
+2. Assurez-vous que Docker et Docker Compose sont installés sur votre machine.
 
+### Démarrage des services
 
-Tous les échanges avec l'utilisateur (affichages et saisies) se font sur la console.
+1. Démarrez les services définis dans le fichier docker-compose.yml :
+   ```sh
+   cd sql
+   docker compose up -d
+   ```
 
+2. Vérifiez que les conteneurs sont en cours d'exécution :
+   ```sh
+   docker ps
+   ```
 
-Evolutions possibles :
-• Permettre de créer des groupes de 3, 4 ou plus,
+   Vous devriez voir deux conteneurs en cours d'exécution : db (MySQL) et pma (phpMyAdmin).
 
-• Structurer le code sous forme de fonctions,
+Création et peuplement de la base de données
 
-• Afficher l’adresse mail d’un élève demandé,
+1. Accédez au conteneur MySQL :
+   ```sh
+   docker exec -it db mysql -u root -p
+   ```
+   Entrez le mot de passe example lorsque vous y êtes invité.
 
-• Afficher la liste des projets,
+2. Créez la base de données :
+   ```sql
+   CREATE DATABASE binomotron_t2_bdd;
+   USE binomotron_t2_bdd;
+   ```
 
-• Afficher les groupes pour un projet donné,
+3. Quittez le shell MySQL :
+   `EXIT`
 
-• Stocker en base les groupes constitués, avec leurs dates de création.
+4. Importez le script SQL pour créer les tables et insérer les données :
+   ```sh
+   docker exec -i db mysql -u root -p binomotron_t2_bdd < binomotron_t2_bdd.sql
+   ```
+   Entrez le mot de passe example lorsque vous y êtes invité.
 
+### Utilisation de l'application
+
+1. Assurez-vous que les dépendances Python sont installées :
+   ```sh
+   cd ..
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+   ```
+
+2. Exécutez le script Python :
+   ```sh
+   python binomo_v2.py
+   ```
+
+3. Suivez les instructions à l'écran pour interagir avec l'application.
+
+Arrêt des services
+
+Pour arrêter les services Docker, exécutez :
+```sh 
+docker-compose down
+```
+### Évolutions possibles
+
+- Permettre de créer des groupes de 3, 4 ou plus.
+- Structurer le code sous forme de fonctions.
+- Afficher l’adresse mail d’un élève demandé.
+- Afficher la liste des projets.
+- Afficher les groupes pour un projet donné.
+- Stocker en base les groupes constitués, avec leurs dates de création.
