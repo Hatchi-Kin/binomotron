@@ -5,7 +5,7 @@ Une App qui permet de générer des équipes projet à partir d'une base de donn
 ### Installation
 
 1. Clonez ce dépôt sur votre machine locale :
-   git clone <URL_DU_DEPOT>
+   git clone https://github.com/Hatchi-Kin/binomotron.git
    cd binomotron
 
 2. Assurez-vous que Docker et Docker Compose sont installés sur votre machine.
